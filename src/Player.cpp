@@ -11,7 +11,7 @@ Player create_player()
     std::cout << "Choisissez  un symbole entre X et O : " << std::endl;
     std::cin >> symbol;
     symbol = std::toupper(symbol);
-    while (symbol == 'X' && symbol == 'O') // censez être ||
+    while (symbol != 'X' && symbol != 'O') // censez être ||
     {
         std::cout << "Veuillez reessayer, choisissez  un symbole entre X et O : " << std::endl;
         std::cin >> symbol;
