@@ -13,19 +13,22 @@ bool CheckerInputBoard(Player &player1, Player &player2, std::array<std::array<c
     }
     return checker;
 }
-bool CheckerEmptyBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &plato)
+bool CheckerFilledBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &plato)
 {
-    bool checker{true};
+    bool checker {false};
+    int checkerincrement {0};
     for (int i{0}; i < 3; i++)
     {
         for (int j{0}; j < 3; j++)
         {
             if (plato[i][j] == player1.symbol || plato[i][j] == player2.symbol)
             {
-            checker = false;
-            return checker;
+                checkerincrement++;
             }
         }
+    }
+    if (checkerincrement == 9){
+        checker = true;
     }
     return checker;
 }
