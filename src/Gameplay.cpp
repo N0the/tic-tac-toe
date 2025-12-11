@@ -1,26 +1,36 @@
 #include <iostream>
 #include "Gameplay.hpp"
 #include "Checker.hpp"
+#include "Board.hpp"
 #include <array>
 
-std::array<std::array<char, 3>, 3> PlayerTurn(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &plato)
+std::array<std::array<char, 3>, 3> PlayerTurn(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board)
 {
-    bool CheckerInputBoardVar = true;
+    bool CheckerInputBoardVar = false;
     int PositionX{0};
-    int PositionY{0};
-    while (CheckerInputBoardVar == true)
+    while (CheckerInputBoardVar == false)
     {
-        std::cout << "Choisissez une case du morpion entre 1 et 9 : " << std::endl;
-        while (PositionX < 0 || PositionX > 9 || !(std::cin >> PositionX))
+        std::cout << player1.name << ", choisissez une case valable du morpion entre 1 et 9 : " << std::endl;
+        while (!(std::cin >> PositionX) || PositionX < 1 || PositionX > 9)
         {
-            std::cout << "Mauvaise valeur, choisissez une case valable du morpion entre 1 et 9 : " << std::endl;
-            std::cin >> PositionX;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Mauvaise valeur " << player1.name << ", choisissez une case valable du morpion entre 1 et 9 : " << std::endl;
         }
         PositionX--;
         int row = PositionX / 3;
         int column = PositionX % 3;
-        plato[row][column] = player1.symbol;
-        CheckerInputBoardVar = CheckerInputBoard(player1, player2, plato, row, column);
+        CheckerInputBoardVar = CheckerInputBoard(player1, player2, Board, row, column);
+        if (CheckerInputBoardVar == false)
+        {
+            std::cout << "Case deja prise" << std::endl;
+            continue;
+        }
+        else
+        {
+            Board[row][column] = player1.symbol;
+        }
     }
-    return plato;
+    draw_game_board(Board);
+    return Board;
 }
