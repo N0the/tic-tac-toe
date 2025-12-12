@@ -29,8 +29,49 @@ bool CheckerFilledBoard(Player &player1, Player &player2, std::array<std::array<
     }
     return checker;
 }
-
-bool CheckerWin(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board)
+bool CheckerDraw(bool CheckerFilled)
 {
+    if (CheckerFilled == true)
+    {
+        std::cout << "Partie terminee, egalite !" << std::endl;
+        return true;
+    };
+    return false;
+}
 
+bool CheckerWin(Player &player1, std::array<std::array<char, 3>, 3> &Board)
+{
+    /* Check lignes*/
+    for (int i = 0; i < 3; ++i)
+    {
+        if (Board[i][0] == player1.symbol && Board[i][0] == Board[i][1] && Board[i][1] == Board[i][2])
+        {
+            std::cout << "Partie terminee, " << player1.name << " a gagne !" << std::endl;
+            return true;
+        }
+    }
+    /* Check colonnes*/
+    for (int j = 0; j < 3; ++j)
+    {
+        if (Board[0][j] == player1.symbol && Board[0][j] == Board[1][j] && Board[1][j] == Board[2][j])
+        {
+            std::cout << "Partie terminee, " << player1.name << " a gagne !" << std::endl;
+            return true;
+        }
+    }
+    /*Check diagonales*/
+    if (Board[0][0] == player1.symbol &&
+        Board[0][0] == Board[1][1] && Board[1][1] == Board[2][2])
+    {
+        std::cout << "Partie terminee, " << player1.name << " a gagne !" << std::endl;
+        return true;
+    }
+
+    if (Board[0][2] == player1.symbol && Board[0][2] == Board[1][1] && Board[1][1] == Board[2][0])
+    {
+        std::cout << "Partie terminee, " << player1.name << " a gagne !" << std::endl;
+        return true;
+    }
+    
+    return false;
 }

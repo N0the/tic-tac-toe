@@ -4,3 +4,5 @@
 
 bool CheckerInputBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board, int &row, int &column);
 bool CheckerFilledBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board);
+bool CheckerDraw(bool CheckerFilled);
+bool CheckerWin(Player &player1, std::array<std::array<char, 3>, 3> &Board);
