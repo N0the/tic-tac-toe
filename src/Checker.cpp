@@ -2,14 +2,14 @@
 #include "Checker.hpp"
 #include <array>
 
-bool CheckerInputBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board, int &row, int &column)
+bool CheckerInputBoard(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board, int &row, int &column)
 {
     if (Board[row][column] != player1.symbol && Board[row][column] != player2.symbol)
         return true;
 
     return false;
 }
-bool CheckerFilledBoard(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board)
+bool CheckerFilledBoard(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board)
 {
     bool checker{false};
     int checkerincrement{0};
@@ -39,7 +39,7 @@ bool CheckerDraw(bool CheckerFilled)
     return false;
 }
 
-bool CheckerWin(Player &player1, std::array<std::array<char, 3>, 3> &Board)
+bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board)
 {
     /* Check lignes*/
     for (int i = 0; i < 3; ++i)

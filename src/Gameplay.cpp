@@ -4,7 +4,7 @@
 #include "Board.hpp"
 #include <array>
 
-std::array<std::array<char, 3>, 3> PlayerTurn(Player &player1, Player &player2, std::array<std::array<char, 3>, 3> &Board)
+std::array<std::array<char, 3>, 3> PlayerTurn(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board)
 {
     bool CheckerInputBoardVar = false;
     int PositionX{0};
@@ -34,7 +34,11 @@ std::array<std::array<char, 3>, 3> PlayerTurn(Player &player1, Player &player2, 
     draw_game_board(Board);
     return Board;
 }
-int GamePlayMode1(Player &Player1, std::array<std::array<char, 3>, 3> &Board)
+std::array<std::array<char, 3>, 3> IATurn(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board)
+{
+    
+}
+int GamePlayMode1(const Player &Player1, std::array<std::array<char, 3>, 3> &Board)
 {
     std::cout
         << "Deuxieme joueur alors !" << std::endl;
@@ -61,6 +65,39 @@ int GamePlayMode1(Player &Player1, std::array<std::array<char, 3>, 3> &Board)
         CheckerDraw(CheckerFilled);
         CheckerWin(Player2, Board);
         if (CheckerWin(Player2, Board))
+        {
+            break;
+        };
+    }
+    return 0;
+}
+
+int GamePlayMode2(const Player &Player1, std::array<std::array<char, 3>, 3> &Board)
+{
+    std::cout
+        << "Tu es contre l'IA maintenant, bonne chance..." << std::endl;
+
+    Player IA{"IA", ' '};
+    if (Player1.symbol == 'X')
+    {
+        IA.symbol = 'O';
+        std::cout
+            << IA.symbol << std::endl;
+    }
+    else
+    {
+        IA.symbol = 'X';
+        std::cout
+            << IA.symbol << std::endl;
+    }
+    bool CheckerFilled = CheckerFilledBoard(Player1, IA, Board);
+    bool result = false;
+    while (CheckerFilled == false)
+    {
+        Board = PlayerTurn(Player1, IA, Board);
+        CheckerFilled = CheckerFilledBoard(Player1, IA, Board);
+        result = CheckerDraw(CheckerFilled);
+        if (CheckerWin(Player1, Board))
         {
             break;
         };
