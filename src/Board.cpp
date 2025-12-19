@@ -17,8 +17,8 @@ std::array<std::array<char, 3>, 3> createBoard() {
     std::array<std::array<char, 3>, 3> Board;
 
     char value = '1';
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i {0}; i < Board.size(); ++i) {
+        for (int j {0}; j < Board.size(); ++j) {
             Board[i][j] = value++;
         }
     }

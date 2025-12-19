@@ -4,30 +4,25 @@
 
 bool CheckerInputBoard(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board, int &row, int &column)
 {
-    if (Board[row][column] != player1.symbol && Board[row][column] != player2.symbol)
+    if (Board[row][column] >= '1' && Board[row][column] <= '9')
         return true;
 
     return false;
 }
-bool CheckerFilledBoard(const Player &player1, const Player &player2, std::array<std::array<char, 3>, 3> &Board)
+bool CheckerFilledBoard(std::array<std::array<char, 3>, 3> &Board)
 {
-    bool checker{false};
-    int checkerincrement{0};
-    for (int i{0}; i < 3; i++)
+    for (int i{0}; i < Board.size(); i++)
     {
-        for (int j{0}; j < 3; j++)
+        for (int j{0}; j < Board.size(); j++)
         {
-            if (Board[i][j] == player1.symbol || Board[i][j] == player2.symbol)
+            if (Board[i][j] >= '1' && Board[i][j] <= '9')
             {
-                checkerincrement++;
+                return false;
             }
         }
     }
-    if (checkerincrement == 9)
-    {
-        checker = true;
-    }
-    return checker;
+
+    return true;
 }
 bool CheckerDraw(bool CheckerFilled)
 {
@@ -42,7 +37,7 @@ bool CheckerDraw(bool CheckerFilled)
 bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board)
 {
     /* Check lignes*/
-    for (int i = 0; i < 3; ++i)
+    for (int i{0}; i < Board.size(); i++)
     {
         if (Board[i][0] == player1.symbol && Board[i][0] == Board[i][1] && Board[i][1] == Board[i][2])
         {
@@ -51,7 +46,7 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
         }
     }
     /* Check colonnes*/
-    for (int j = 0; j < 3; ++j)
+    for (int j{0}; j < Board.size(); ++j)
     {
         if (Board[0][j] == player1.symbol && Board[0][j] == Board[1][j] && Board[1][j] == Board[2][j])
         {
@@ -60,6 +55,7 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
         }
     }
     /*Check diagonales*/
+
     if (Board[0][0] == player1.symbol &&
         Board[0][0] == Board[1][1] && Board[1][1] == Board[2][2])
     {
@@ -72,6 +68,49 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
         std::cout << "Partie terminee, " << player1.name << " a gagne !" << std::endl;
         return true;
     }
-    
+
     return false;
+}
+bool CheckerAlmostWin(const Player &player, std::array<std::array<char, 3>, 3> &Board) // Fonction pour regarder si un coup est gagnat
+{
+    for (int i{0}; i < Board.size(); ++i)
+    {
+        for (int j{0}; j < Board.size(); ++j)
+        {
+            if (Board[i][j] >= '1' && Board[i][j] <= '9')
+            {
+                char PositionOriginal = Board[i][j];
+                Board[i][j] = player.symbol;
+                bool isWin = CheckerWin(player, Board);
+                Board[i][j] = PositionOriginal;
+                if (isWin)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+std::array<int, 2> CheckerWinningMove(const Player &player, std::array<std::array<char, 3>, 3> &Board)
+{
+    for (int i{0}; i < Board.size(); ++i)
+    {
+        for (int j{0}; j < Board.size(); ++j)
+        {
+            if (Board[i][j] >= '1' && Board[i][j] <= '9')
+            {
+                char PositionOriginal = Board[i][j];
+                Board[i][j] = player.symbol;
+                bool isWin = CheckerWin(player, Board);
+                Board[i][j] = PositionOriginal;
+                
+                if (isWin)
+                {
+                    return {i, j};
+                }
+            }
+        }
+    }
+    return {-1, -1}; // Pour contourner le problème du retour ici, je mets des coordonnées pas accessible, je ne sais pas comment faire autrement pour être honnête
 }
