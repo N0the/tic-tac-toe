@@ -1,12 +1,16 @@
 # Projet Tic Tac Toe - LEEDER Julien
 
+Implémentation d'un jeu de morpion en C++ (standard C++ 20) avec deux modes de jeu :
+- Joueur contre joueur
+- Joueur contre IA intelligente
+
 Vous retrouverez les explications de ce projet de morpion détaillés en quatre points
 
 ## Libraires et système d'exploitation
 
-Pour ce qui est du projet, ce morpion a été réalisé à l'aide de C++ et des ses fonctionnalités de base, en plus des librairie pour la génération de nombres aléatoires
+Pour ce qui est du projet, ce morpion a été réalisé à l'aide de C++, avec les libraires `<cstdlib>` et `<ctime>` pour la génération de nombres aléatoires.
 
-Ce morpion a par contre été seulement testé sur Windows 11.
+**Système d'exploitation testé** : Seulement sur Windows 11.
 
 ## Organisation du code
 
