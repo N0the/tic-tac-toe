@@ -9,11 +9,11 @@ bool CheckerInputBoard(const Player &player1, const Player &player2, std::array<
 
     return false;
 }
-bool CheckerFilledBoard(std::array<std::array<char, 3>, 3> &Board)
+bool CheckerFilledBoard(const std::array<std::array<char, 3>, 3> &Board)
 {
-    for (int i{0}; i < Board.size(); i++)
+    for (size_t i{0}; i < Board.size(); i++)
     {
-        for (int j{0}; j < Board.size(); j++)
+        for (size_t j{0}; j < Board.size(); j++)
         {
             if (Board[i][j] >= '1' && Board[i][j] <= '9')
             {
@@ -24,7 +24,7 @@ bool CheckerFilledBoard(std::array<std::array<char, 3>, 3> &Board)
 
     return true;
 }
-bool CheckerDraw(bool CheckerFilled)
+bool CheckerDraw(const bool CheckerFilled)
 {
     if (CheckerFilled == true)
     {
@@ -34,10 +34,10 @@ bool CheckerDraw(bool CheckerFilled)
     return false;
 }
 
-bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board)
+bool CheckerWin(const Player &player1, const std::array<std::array<char, 3>, 3> &Board)
 {
     /* Check lignes*/
-    for (int i{0}; i < Board.size(); i++)
+    for (size_t i{0}; i < Board.size(); i++)
     {
         if (Board[i][0] == player1.symbol && Board[i][0] == Board[i][1] && Board[i][1] == Board[i][2])
         {
@@ -46,7 +46,7 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
         }
     }
     /* Check colonnes*/
-    for (int j{0}; j < Board.size(); ++j)
+    for (size_t j{0}; j < Board.size(); ++j)
     {
         if (Board[0][j] == player1.symbol && Board[0][j] == Board[1][j] && Board[1][j] == Board[2][j])
         {
@@ -74,9 +74,9 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
 
 std::array<int, 2> CheckerWinningMove(const Player &player, std::array<std::array<char, 3>, 3> &Board)
 {
-    for (int i{0}; i < Board.size(); ++i)
+    for (size_t i{0}; i < Board.size(); ++i)
     {
-        for (int j{0}; j < Board.size(); ++j)
+        for (size_t j{0}; j < Board.size(); ++j)
         {
             if (Board[i][j] >= '1' && Board[i][j] <= '9')
             {
@@ -87,7 +87,7 @@ std::array<int, 2> CheckerWinningMove(const Player &player, std::array<std::arra
                 
                 if (isWin)
                 {
-                    return {i, j};
+                    return {static_cast<int>(i), static_cast<int>(j)};
                 }
             }
         }

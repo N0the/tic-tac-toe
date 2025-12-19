@@ -61,13 +61,13 @@ std::array<std::array<char, 3>, 3> IATurn(const Player &player, const Player &IA
 
     // Play aléatoire
     std::vector<std::array<int, 2>> PlayAvailable{};
-    for (int i{0}; i < Board.size(); ++i)
+    for (size_t i{0}; i < Board.size(); ++i)
     {
-        for (int j{0}; j < Board.size(); ++j)
+        for (size_t j{0}; j < Board.size(); ++j)
         {
             if (Board[i][j] >= '1' && Board[i][j] <= '9')
             {
-                PlayAvailable.push_back({i, j});
+                PlayAvailable.push_back({static_cast<int>(i), static_cast<int>(j)});
             }
         }
     }
