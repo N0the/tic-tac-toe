@@ -71,27 +71,7 @@ bool CheckerWin(const Player &player1, std::array<std::array<char, 3>, 3> &Board
 
     return false;
 }
-bool CheckerAlmostWin(const Player &player, std::array<std::array<char, 3>, 3> &Board) // Fonction pour regarder si un coup est gagnat
-{
-    for (int i{0}; i < Board.size(); ++i)
-    {
-        for (int j{0}; j < Board.size(); ++j)
-        {
-            if (Board[i][j] >= '1' && Board[i][j] <= '9')
-            {
-                char PositionOriginal = Board[i][j];
-                Board[i][j] = player.symbol;
-                bool isWin = CheckerWin(player, Board);
-                Board[i][j] = PositionOriginal;
-                if (isWin)
-                {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
+
 std::array<int, 2> CheckerWinningMove(const Player &player, std::array<std::array<char, 3>, 3> &Board)
 {
     for (int i{0}; i < Board.size(); ++i)
